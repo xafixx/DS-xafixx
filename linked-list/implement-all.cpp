@@ -5,9 +5,21 @@ struct node{
 	node* next;
 };
 
+void insertFront(node** headFront, int dataFront){
+}
+
+void insertEnd(node** headEnd, int dataEnd){
+}
+
+void insertatPos(node** headatPos, int dataatPos, int insertPos){
+}
+
+void deleteNodeAt(node** headDelete, int deletePos){
+}
+
 int main() {
 	node* head = NULL;
-	int n, data, how_many;
+	int n, data, opt, pos;
 	while(1){
 		std::cout << "================== SELAMAT DATANG LINKED LIST =======================" << "\n";
 		std::cout << "1. Insert List" << "\n";
@@ -19,22 +31,43 @@ int main() {
 		std::cin >> n;
 		
 		if(n == 1){
-			int opt;
-			std::cout << "1. Insert Front" << "\n";
+			std::cout << "Insert data: ";
+			std::cin >> data;
+			std::cout << "\n1. Insert Front" << "\n";
 			std::cout << "2. Insert End" << "\n";
 			std::cout << "3. Insert at Particular Position" << "\n";
+			std::cout << "Enter the number choices[1/2/3]:  ";
 			std::cin >> opt;
 			
+			if(opt == 1){
+				insertFront(&head, data);
+			}else if(opt == 2){
+				insertEnd(&head, data);
+			}else if(opt == 3){
+				std::cout << "Insert position: ";
+				std::cin >> pos;
+				insertatPos(&head, data, pos);
+			}else {
+				std::cout << "No " << opt << " choices exist" << "\n";
+			}
+			
 		}else if(n == 2){
+			std::cout << "Insert position: ";
+			std::cin >> pos;
+			deleteNodeAt(&head, pos);
 		}else if(n == 3){
+			std::cout << "============== Contents of List =============="<< "\n";
+			printList(head);
 		}else if(n == 4){
+			reversePrintList(head);
 		}else if(n == 5) {
+			reverseContentOfList(&head);
 		}else if(n == 6){
 			std::cout << "============== Program ended ==============" << "\n";
 			std::cout << "============== THANK YOU!!! ==============" << "\n";
 			break;
 		} else{
-			std::cout << "No choices " << n << " please enter the valid choice numbers!" << "\n";
+			std::cout << "Invalid choices " << n << " please enter the valid choice numbers!" << "\n";
 		}
 	}
 }
