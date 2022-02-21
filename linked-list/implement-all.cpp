@@ -17,6 +17,18 @@ void insertatPos(node** headatPos, int dataatPos, int insertPos){
 void deleteNodeAt(node** headDelete, int deletePos){
 }
 
+void deleteAll(node** headDeleteAll){
+}
+
+void printList(node* headPrintList) {
+}
+
+void reversePrintList(node* headReversePrintList){
+}
+
+void reverseContentOfList(node** headReverseContentOfList){
+}
+
 int main() {
 	node* head = NULL;
 	int n, data, opt, pos;
@@ -52,9 +64,20 @@ int main() {
 			}
 			
 		}else if(n == 2){
-			std::cout << "Insert position: ";
-			std::cin >> pos;
-			deleteNodeAt(&head, pos);
+			std::cout << "\n1. Delete all content in list" << "\n";
+			std::cout << "2. Delete content at particular position" << "\n";
+			std::cout << "Enter the number choices[1/2]:  ";
+			std::cin >> opt;
+			
+			if(opt == 1){
+				deleteAll(&head);
+			} else if(opt == 2){
+				std::cout << "Insert position: ";
+				std::cin >> pos;
+				deleteNodeAt(&head, pos);
+			} else{
+				std::cout << "No " << opt << " choices exist" << "\n";
+			}
 		}else if(n == 3){
 			std::cout << "============== Contents of List =============="<< "\n";
 			printList(head);
