@@ -91,8 +91,10 @@ void recursiveReversePrint(node* headrrPrint){
 	std::cout << headrrPrint->data << "  ";
 }
 
-void reverseContentOfList(node** headReverseContentOfList){
-	
+void reverseList(node** headReverseList){
+}
+
+void recursiveReverseList(node** headRecursiveReverse){
 }
 
 int main() {
@@ -161,7 +163,18 @@ int main() {
 				std::cout << "No " << opt << " choices exist" << "\n";
 			}
 		}else if(n == 4) {
-			reverseContentOfList(&head);
+			std::cout << "1. Reverse List" << "\n";
+			std::cout << "2. Recursively Reverse List" << "\n";
+			std::cout << "Enter your choice[1/2/]: ";
+			std::cin >> opt;
+			
+			if(opt == 1) {
+				reverseList(&head);
+			} else if(opt == 2) {
+				recursiveReverseList(&head);
+			} else{
+				std::cout << "No " << opt << " choices exist" << "\n";
+			}
 		}else if(n == 5){
 			std::cout << "============== Program ended ============== THANK YOU!!! =============="<< "\n";
 			break;
