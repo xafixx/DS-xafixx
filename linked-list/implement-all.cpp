@@ -5,17 +5,19 @@ struct node{
 	node* next;
 };
 
-void insertFront(node** headFront, int dataFront){
+void insertFront(node** headFront, int dataFront, int* countInsertFront){
 	node* temp_ifr = (node*)malloc(sizeof(node*));
 	temp_ifr->data = dataFront;
 	temp_ifr->next = *headFront;
 	*headFront = temp_ifr;
+	*countInsertFront = *countInsertFront + 1;
 }
 
-void insertEnd(node** headEnd, int dataEnd){
+void insertEnd(node** headEnd, int dataEnd, int* countInsertEnd){
 	node* tempInsertEnd_f = (node*)malloc(sizeof(node*));
 	tempInsertEnd_f->data = dataEnd;
 	tempInsertEnd_f->next = NULL;
+	*countInsertEnd = *countInsertEnd + 1;
 	
 	if(*headEnd == NULL) {
 		*headEnd = tempInsertEnd_f;
@@ -29,8 +31,32 @@ void insertEnd(node** headEnd, int dataEnd){
 	tempInsertEnd_s->next = tempInsertEnd_f;
 }
 
-void insertatPos(node** headatPos, int dataatPos, int insertPos){
+void insertatPos(node** headatPos, int dataatPos, int insertPos, int* countInsertPos){
+	node* tempInsertPos_f = (node*)malloc(sizeof(node*));
+	tempInsertPos_f->data = dataatPos;
+	tempInsertPos_f->next = NULL;
 	
+	if((insertPos) <= 0 || (insertPos > *countInsertPos)){
+		std::cout << "\n\nIVALID POSITION!" << " You are trying to access position "
+		<< insertPos << " current list size is " << *countInsertPos << 
+		" begin at the position 1" << "\n\n";
+		return;
+	}
+	
+	*countInsertPos = *countInsertPos + 1;
+	
+	if(insertPos == 1) {
+		tempInsertPos_f->next = *headatPos;
+		*headatPos = tempInsertPos_f;
+		return;
+	}
+	
+	node* tempInsertPos_s = *headatPos;
+	for(int i=0; i<insertPos-2; i++) {
+		tempInsertPos_s = tempInsertPos_s->next;
+	}
+	tempInsertPos_f->next = tempInsertPos_s->next;
+	tempInsertPos_s->next = tempInsertPos_f; 
 }
 
 void deleteNodeAt(node** headDelete, int deletePos){
@@ -66,11 +92,12 @@ void recursiveReversePrint(node* headrrPrint){
 }
 
 void reverseContentOfList(node** headReverseContentOfList){
+	
 }
 
 int main() {
 	node* head = NULL;
-	int n, data, opt, pos;
+	int n, data, opt, pos, count=0;
 	
 	while(1){
 		std::cout << "================== WELCOME TO LINKED LIST PROGRAM =======================" << "\n";
@@ -92,13 +119,13 @@ int main() {
 			std::cin >> opt;
 			
 			if(opt == 1){
-				insertFront(&head, data);
+				insertFront(&head, data, &count);
 			}else if(opt == 2){
-				insertEnd(&head, data);
+				insertEnd(&head, data, &count);
 			}else if(opt == 3){
 				std::cout << "Insert position: ";
 				std::cin >> pos;
-				insertatPos(&head, data, pos);
+				insertatPos(&head, data, pos, &count);
 			}else {
 				std::cout << "No " << opt << " choices exist" << "\n";
 			}
@@ -110,6 +137,7 @@ int main() {
 			std::cin >> opt;
 			
 			if(opt == 1){
+				count = 0;
 				deleteAll(&head);
 			} else if(opt == 2){
 				std::cout << "Insert position: ";
@@ -121,11 +149,12 @@ int main() {
 		}else if(n == 3){
 			std::cout << "============== Contents of List =============="<< "\n";
 			std::cout << "1. Print List as it is" << "\n";
-			std::cout << "2. Reversed Print List" << "\n";
+			std::cout << "2. Recursively Reversed Print List" << "\n";
 			std::cout << "Enter your choice[1/2] : ";
 			std::cin >> opt;
 			if(opt == 1){
 				printList(head);
+				std::cout << "List size: "<< count << "\n";
 			} else if(opt == 2) {
 				recursiveReversePrint(head);
 			} else{
