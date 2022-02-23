@@ -59,7 +59,30 @@ void insertatPos(node** headatPos, int dataatPos, int insertPos, int* countInser
 	tempInsertPos_s->next = tempInsertPos_f; 
 }
 
-void deleteNodeAt(node** headDelete, int deletePos){
+void deleteNodeAt(node** headDelete, int deletePos, int* countDelete){
+	node* tempDeleteNodeAt_f = *headDelete;
+	
+	if((deletePos <= 0) || (deletePos > *countDelete)) {
+		std::cout << "\n\nIVALID POSITION!" << " You are trying to access position "
+		<< deletePos << " current list size is " << *countDelete << 
+		" begin at the position 1" << "\n\n";
+		return;
+	}
+	
+	if(deletePos == 1){
+		*headDelete = tempDeleteNodeAt_f->next;
+		*countDelete = *countDelete - 1;
+		free(tempDeleteNodeAt_f);
+		return;
+	}
+	
+	for(int i=0; i<deletePos-2; i++) {
+		tempDeleteNodeAt_f = tempDeleteNodeAt_f->next;
+	}
+	node* tempDeleteNodeAt_s = tempDeleteNodeAt_f->next;
+	tempDeleteNodeAt_f->next = tempDeleteNodeAt_s->next;
+	*countDelete = *countDelete - 1;
+	free(tempDeleteNodeAt_s);
 }
 
 void deleteAll(node** headDeleteAll){
@@ -92,9 +115,22 @@ void recursiveReversePrint(node* headrrPrint){
 }
 
 void reverseList(node** headReverseList){
-}
-
-void recursiveReverseList(node** headRecursiveReverse){
+	node* current = *headReverseList;
+	node* nextNode;
+	node* prev;
+	
+	if(*headReverseList == NULL) {
+		return;
+	}
+	
+	prev = NULL;
+	while(current != NULL){
+		nextNode = current->next;
+		current->next = prev;
+		prev = current;
+		current = nextNode;
+	}
+	*headReverseList = prev;
 }
 
 int main() {
@@ -102,7 +138,7 @@ int main() {
 	int n, data, opt, pos, count=0;
 	
 	while(1){
-		std::cout << "================== WELCOME TO LINKED LIST PROGRAM =======================" << "\n";
+		std::cout << "================== WELCOME TO SINGLY LINKED LIST PROGRAM =======================" << "\n";
 		std::cout << "1. Insert List" << "\n";
 		std::cout << "2. Delete List" << "\n";
 		std::cout << "3. Print List" << "\n";
@@ -144,7 +180,7 @@ int main() {
 			} else if(opt == 2){
 				std::cout << "Insert position: ";
 				std::cin >> pos;
-				deleteNodeAt(&head, pos);
+				deleteNodeAt(&head, pos, &count);
 			} else{
 				std::cout << "No " << opt << " choices exist" << "\n";
 			}
@@ -159,24 +195,15 @@ int main() {
 				std::cout << "List size: "<< count << "\n";
 			} else if(opt == 2) {
 				recursiveReversePrint(head);
+				std::cout << "\n";
 			} else{
 				std::cout << "No " << opt << " choices exist" << "\n";
 			}
 		}else if(n == 4) {
-			std::cout << "1. Reverse List" << "\n";
-			std::cout << "2. Recursively Reverse List" << "\n";
-			std::cout << "Enter your choice[1/2/]: ";
-			std::cin >> opt;
-			
-			if(opt == 1) {
-				reverseList(&head);
-			} else if(opt == 2) {
-				recursiveReverseList(&head);
-			} else{
-				std::cout << "No " << opt << " choices exist" << "\n";
-			}
+			reverseList(&head);
+			std::cout << "List successfully reversed!" << "\n";
 		}else if(n == 5){
-			std::cout << "============== Program ended ============== THANK YOU!!! =============="<< "\n";
+			std::cout << "============== Program Ended ============== THANK YOU!!! =============="<< "\n";
 			break;
 		} else{
 			std::cout << "Invalid choices " << n << " please enter the valid choice numbers!" << "\n";
