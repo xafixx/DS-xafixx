@@ -5,18 +5,22 @@ struct node{
 	node* next;
 };
 
+node* createNode(int data){
+	node* temp = (node*)malloc(sizeof(node*));
+	temp->data = data;
+	temp->next = NULL;
+	return temp;
+}
+
 void insertFront(node** headFront, int dataFront, int* countInsertFront){
-	node* temp_ifr = (node*)malloc(sizeof(node*));
-	temp_ifr->data = dataFront;
+	node* temp_ifr = createNode(dataFront);
 	temp_ifr->next = *headFront;
 	*headFront = temp_ifr;
 	*countInsertFront = *countInsertFront + 1;
 }
 
 void insertEnd(node** headEnd, int dataEnd, int* countInsertEnd){
-	node* tempInsertEnd_f = (node*)malloc(sizeof(node*));
-	tempInsertEnd_f->data = dataEnd;
-	tempInsertEnd_f->next = NULL;
+	node* tempInsertEnd_f = createNode(dataEnd);
 	*countInsertEnd = *countInsertEnd + 1;
 	
 	if(*headEnd == NULL) {
@@ -32,9 +36,7 @@ void insertEnd(node** headEnd, int dataEnd, int* countInsertEnd){
 }
 
 void insertatPos(node** headatPos, int dataatPos, int insertPos, int* countInsertPos){
-	node* tempInsertPos_f = (node*)malloc(sizeof(node*));
-	tempInsertPos_f->data = dataatPos;
-	tempInsertPos_f->next = NULL;
+	node* tempInsertPos_f = createNode(dataatPos);
 	
 	if((insertPos) <= 0 || (insertPos > *countInsertPos)){
 		std::cout << "\n\nIVALID POSITION!" << " You are trying to access position "
