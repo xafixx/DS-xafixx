@@ -45,26 +45,36 @@ void pop(node** head) {
 	free(temp);
 }
 
-void printValue(node* head) {
-	node* temp = head;
-	std::cout << "Stack: ";
-	
-	while(temp != NULL) {
-		std::cout << temp->data << " ";
-		temp = temp->next;
+/*
+ * yield the top of stack
+ * */
+int top(node** head) {
+	return (*head)->data;
+}
+
+/*
+ * check if stack is empty or not
+ * */
+bool isEmpty(node* head){
+	if(head == NULL) {
+		return true;
+	} else{
+		return false;
 	}
-	std::cout << "\n";
+}
+
+void printStack(node** head) {
+	while(!isEmpty(*head)){
+		std::cout << top(&(*head)) << " ";
+		pop(&(*head));
+	}
 }
 
 int main() {
 	node* head = NULL;
+	push(1, &head);
 	push(2, &head);
-	push(12, &head);
-	push(20, &head);
-	printValue(head);
-	
-	pop(&head);
-	printValue(head);
-	pop(&head);
-	printValue(head);
+	push(3, &head);
+	push(4, &head);
+	printStack(&head);
 }
