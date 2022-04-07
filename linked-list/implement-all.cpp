@@ -135,6 +135,24 @@ void reverseList(node** headReverseList){
 	*headReverseList = prev;
 }
 
+void reverseListRecursively(node** headReverseListRecursive){
+	if(	(headReverseListRecursive == NULL) 
+		|| (*headReverseListRecursive == NULL) 
+		|| ((*headReverseListRecursive)->next == NULL))
+	{
+		return;
+	}
+	
+	node* current = *headReverseListRecursive;
+	node* next = current->next;
+	*headReverseListRecursive = next;
+	
+	reverseListRecursively(headReverseListRecursive);
+	
+	next->next = current;
+	current->next = NULL;
+}
+
 int main() {
 	node* head = NULL;
 	int n, data, opt, pos, count=0;
@@ -192,6 +210,7 @@ int main() {
 			std::cout << "2. Recursively Reversed Print List" << "\n";
 			std::cout << "Enter your choice[1/2] : ";
 			std::cin >> opt;
+			
 			if(opt == 1){
 				printList(head);
 				std::cout << "List size: "<< count << "\n";
@@ -201,9 +220,25 @@ int main() {
 			} else{
 				std::cout << "No " << opt << " choices exist" << "\n";
 			}
+		
 		}else if(n == 4) {
-			reverseList(&head);
-			std::cout << "List successfully reversed!" << "\n";
+			std::cout << "============== Reversed List =============="<< "\n";
+			std::cout << "1. Reverse List Iteratively" << "\n";
+			std::cout << "2. Recursively Reversed List" << "\n";
+			std::cout << "Enter your choice[1/2] : ";
+			std::cin >> opt;
+			
+			if(opt == 1) {
+				reverseList(&head);
+				std::cout << "List successfully reversed!" << "\n";
+			} else if(opt == 2) {
+				reverseListRecursively(&head);
+				std::cout << "List successfully reversed!" << "\n";
+			} else{
+				std::cout << "No " << opt << " choices exist" << "\n";
+			}
+			
+			
 		}else if(n == 5){
 			std::cout << "============== Program Ended ============== THANK YOU!!! =============="<< "\n";
 			break;
